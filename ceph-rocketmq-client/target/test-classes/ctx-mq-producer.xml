@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="producerManager"
+          class="com.cepheis.rocketmq.client.producer.ProducerManager" init-method="start" destroy-method="destroy">
+
+        <property name="config" ref="producerConfig"/>
+    </bean>
+
+    <bean id="producerConfig" class="com.cepheis.rocketmq.client.config.ProducerConfig">
+        <property name="namesrvAddr" value="10.10.4.11:9876"/>
+        <!--<property name="namesrvAddr" value="10.10.5.238:9876"/>-->
+        <property name="producerGroup" value="TESTMQ_PRODUCER_GROUP"/>
+        <property name="useTransaction" value="false"/>
+        <!--<property name="useTransaction" value="true"/>-->
+        <!--<property name="transactionCheckListener" ref="defaultTransactionCheckListener"/>-->
+    </bean>
+
+    <!--<bean id="defaultTransactionCheckListener"-->
+          <!--class="com.cepheis.rocketmq.client.producer.DefaultTransactionCheckListener">-->
+        <!--<property name="topicTagHandlerRoute">-->
+            <!--<map>-->
+                <!--<entry key="ORDER_TO_ORDER">-->
+                    <!--<map>-->
+                        <!--<entry key="order_create" value-ref="orderCreateHandler"/>-->
+                    <!--</map>-->
+                <!--</entry>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>

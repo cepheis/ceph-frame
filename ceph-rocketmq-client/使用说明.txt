@@ -1,0 +1,24 @@
+rocketmq client 使用方式
+
+配置目前nameserver地址：
+
+ctx-mq-consumer.xml：
+<bean id="consumerConfig" class="com.cepheis.rocketmq.client.config.ConsumerConfig">
+    <property name="namesrvAddr" value="10.10.4.11:9876"/> <!--配置自己的maneserver-->
+    <!--按业务（或者任何）纬度给消费者服务分组，同一条消息如果有不同的consumerGroup订阅，那么这条消息会被每个consumerGroup消费一次-->
+    <property name="consumerGroup" value="TESTMQ_CONSUMER_GROUP"/> 
+    <property name="messageListener" ref="defaultMessageListenerConcurrently"/>
+</bean>
+
+ctx-mq-producer.xml：
+<bean id="producerConfig" class="com.cepheis.rocketmq.client.config.ProducerConfig">
+    <property name="namesrvAddr" value="10.10.4.11:9876"/> <!--配置自己的maneserver-->
+    <!--发送事务消息时，transactionCheckListener，和查找producerGroup下的任意一个服务来做消息check-->
+    <property name="producerGroup" value="TESTMQ_PRODUCER_GROUP"/>
+    <property name="useTransaction" value="false"/>
+    <!--<property name="useTransaction" value="true"/>-->
+    <!--<property name="transactionCheckListener" ref="defaultTransactionCheckListener"/>-->
+</bean>
+
+
+运行测试用例：com.cepheis.ProducerTest.sendTest

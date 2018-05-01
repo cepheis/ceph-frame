@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="pushConsumerManager"
+          class="com.cepheis.rocketmq.client.consumer.PushConsumerManager" destroy-method="destroy" init-method="init">
+        <property name="consumerConfig" ref="consumerConfig"/>
+    </bean>
+
+    <bean id="consumerConfig" class="com.cepheis.rocketmq.client.config.ConsumerConfig">
+        <property name="namesrvAddr" value="10.10.4.11:9876"/>
+        <!--<property name="namesrvAddr" value="10.10.5.238:9876"/>-->
+        <property name="consumerGroup" value="TESTMQ_CONSUMER_GROUP"/>
+        <property name="messageListener" ref="defaultMessageListenerConcurrently"/>
+    </bean>
+
+    <bean name="handlerTest" class="com.cepheis.HandlerTest"/>
+
+    <bean id="defaultMessageListenerConcurrently"
+          class="com.cepheis.rocketmq.client.consumer.DefaultMessageListenerConcurrently" depends-on="handlerTest">
+        <property name="topicTagHandlerRoute">
+            <map>
+                <entry key="MQ_TEST">
+                    <map>
+                        <entry key="test1" value-ref="handlerTest"/>
+                    </map>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
