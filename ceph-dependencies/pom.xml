@@ -29,7 +29,7 @@
         <commons-configuration.version>1.6</commons-configuration.version>
         <fileupload.version>1.3.1</fileupload.version>
         <org.slf4j-version>1.7.21</org.slf4j-version>
-        <ch.qos.logback.version>1.1.7</ch.qos.logback.version>
+        <ch.qos.logback.version>1.2.0</ch.qos.logback.version>
         <logback-ext-spring.version>0.1.4</logback-ext-spring.version>
         <tddl.version>5.1.7-SNAPSHOT</tddl.version>
         <guava.version>21.0</guava.version>
